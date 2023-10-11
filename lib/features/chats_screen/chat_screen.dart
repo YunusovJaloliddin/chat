@@ -159,12 +159,13 @@ class _ChatScreenState extends State<ChatScreen> {
                       child: SizedBox(
                         height: 40,
                         child: DecoratedBox(
-                          decoration: const BoxDecoration(
+                          decoration: BoxDecoration(
                             color: Colors.deepPurple,
                             borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(10),
-                              topLeft: Radius.circular(10),
-                              bottomLeft: Radius.circular(10),
+                              topRight: const Radius.circular(10),
+                              topLeft: const  Radius.circular(10),
+                              bottomLeft: message.uid==2? const Radius.circular(10):Radius.zero,
+                              bottomRight: message.uid==1?const Radius.circular(10):Radius.zero,
                             ),
                           ),
                           child: Padding(
