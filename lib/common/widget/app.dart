@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../features/register_screen/register_screen.dart';
+import '../../features/chats_screen/chat_screen.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: const RegisterPage(),
+      home: const ChatScreen(),
     );
   }
 }
