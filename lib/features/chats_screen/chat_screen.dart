@@ -37,6 +37,8 @@ class _ChatScreenState extends State<ChatScreen> {
     if (context.mounted) {
       Navigator.pop(context);
     }
+
+    editController.text="";
   }
 
   Future<void> deletePost(String id) async {
@@ -100,7 +102,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           return Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              IconButton(
+                              message.uid==2?IconButton(
                                 onPressed: () => showModalBottomSheet(
                                   context: context,
                                   builder: (context) => Padding(
@@ -148,7 +150,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                   ),
                                 ),
                                 icon: const Icon(Icons.edit),
-                              ),
+                              ):const SizedBox.shrink(),
                               IconButton(
                                 onPressed: () => deletePost(message.id),
                                 icon: const Icon(Icons.delete),

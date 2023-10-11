@@ -11,7 +11,7 @@ class _RegisterPageState extends State<RegisterPage> {
   late final TextEditingController emailController;
   late final TextEditingController passwordController;
 
-  FocusNode focusNode=FocusNode();
+  FocusNode focusNode = FocusNode();
 
   @override
   void initState() {
