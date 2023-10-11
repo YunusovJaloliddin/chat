@@ -5,18 +5,21 @@ class Message {
   final String body;
   final String id;
   final DateTime createdAt;
+  final String edited;
 
   Message({
     required this.uid,
     required this.body,
     this.id = "",
+    this.edited="0",
     final DateTime? createdAt,
-  }) : createdAt = createdAt ?? DateTime.now().toUtc();
+  }) : createdAt = createdAt ?? DateTime.now();
 
   factory Message.fromJson(Map<String, Object?> json) => Message(
         uid: json["uid"] as int,
         body: json["body"] as String,
         id: json["id"] as String,
+        edited: json["edited"] as String,
         createdAt: json["created_at"] != null
             ? DateTime.parse(json["created_at"] as String)
             : null,
@@ -26,6 +29,7 @@ class Message {
         "uid": uid,
         "body": body,
         "id": id,
+    "edited":edited,
         "created_at": createdAt.toIso8601String(),
       };
 
@@ -53,10 +57,12 @@ class Message {
     int? uid,
     String? body,
     String? id,
+    String? edited,
   }) =>
       Message(
         uid: uid ?? this.uid,
         body: body ?? this.body,
         id: id ?? this.id,
+        edited: edited?? this.edited,
       );
 }

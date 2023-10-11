@@ -29,6 +29,7 @@ class _ChatScreenState extends State<ChatScreen> {
       uid: message.uid,
       body: editController.text == "" ? message.body : editController.text,
       id: message.id,
+      edited: "1",
     );
 
     await repository.updatePost(editMessage);
@@ -190,9 +191,17 @@ class _ChatScreenState extends State<ChatScreen> {
                                   ),
                                   Align(
                                     alignment: Alignment.bottomRight,
-                                    child: Text(
-                                      "${message.createdAt.hour}:${message.createdAt.minute}",
-                                      style: const TextStyle(fontSize: 12),
+                                    child: Row(
+                                      children: [
+                                        message.edited=="1"?const Text(
+                                          "edited ",
+                                          style: TextStyle(fontSize: 12),
+                                        ):const Text(""),
+                                        Text(
+                                          "${message.createdAt.hour}:${message.createdAt.minute}",
+                                          style: const TextStyle(fontSize: 12),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ],
