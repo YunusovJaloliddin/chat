@@ -156,25 +156,46 @@ class _ChatScreenState extends State<ChatScreen> {
                           );
                         },
                       ),
-                      child: SizedBox(
-                        height: 40,
-                        child: DecoratedBox(
-                          decoration: BoxDecoration(
-                            color: Colors.deepPurple,
-                            borderRadius: BorderRadius.only(
-                              topRight: const Radius.circular(10),
-                              topLeft: const  Radius.circular(10),
-                              bottomLeft: message.uid==2? const Radius.circular(10):Radius.zero,
-                              bottomRight: message.uid==1?const Radius.circular(10):Radius.zero,
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(
+                            maxWidth: MediaQuery.sizeOf(context).width * 0.8,
+                            maxHeight: 50),
+                        child: SizedBox(
+                          height: 50,
+                          child: DecoratedBox(
+                            decoration: BoxDecoration(
+                              color: Colors.deepPurple,
+                              borderRadius: BorderRadius.only(
+                                topRight: const Radius.circular(10),
+                                topLeft: const Radius.circular(10),
+                                bottomLeft: message.uid == 2
+                                    ? const Radius.circular(10)
+                                    : Radius.zero,
+                                bottomRight: message.uid == 1
+                                    ? const Radius.circular(10)
+                                    : Radius.zero,
+                              ),
                             ),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              message.body,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    message.body,
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Align(
+                                    alignment: Alignment.bottomRight,
+                                    child: Text(
+                                      "${message.createdAt.hour}:${message.createdAt.minute}",
+                                      style: const TextStyle(fontSize: 12),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),

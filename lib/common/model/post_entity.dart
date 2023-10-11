@@ -11,7 +11,7 @@ class Message {
     required this.body,
     this.id = "",
     final DateTime? createdAt,
-  }) : createdAt = createdAt ?? DateTime.now();
+  }) : createdAt = createdAt ?? DateTime.now().toUtc();
 
   factory Message.fromJson(Map<String, Object?> json) => Message(
         uid: json["uid"] as int,
