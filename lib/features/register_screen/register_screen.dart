@@ -1,7 +1,8 @@
 import 'package:chat/common/model/user_model.dart';
 import 'package:chat/common/service/auth_service.dart';
-import 'package:chat/features/chats_screen/chat_screen.dart';
 import 'package:flutter/material.dart';
+
+import '../home_screen.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -28,7 +29,7 @@ class _RegisterPageState extends State<RegisterPage> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => const ChatScreen(),
+          builder: (context) => const HomeScreen(),
         ),
       );
     }
@@ -42,7 +43,7 @@ class _RegisterPageState extends State<RegisterPage> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => const ChatScreen(),
+          builder: (context) => const HomeScreen(),
         ),
       );
     }

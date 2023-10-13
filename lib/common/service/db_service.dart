@@ -5,12 +5,14 @@ import 'package:flutter/foundation.dart';
 import '../model/user_model.dart';
 
 
-sealed class DBService {
+class DBService {
   static final db = FirebaseDatabase.instance;
 
+  Stream<DatabaseEvent> getAllUser()=>
+    db.ref(Folder.user).onValue.asBroadcastStream();
 
+  DatabaseReference queryFromPath() => db.ref(Folder.user);
 
-  /// user
   static Future<bool> storeUser(String email, String password, String username, String uid) async {
     try {
       final folder = db.ref(Folder.user).child(uid);

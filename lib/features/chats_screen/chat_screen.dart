@@ -6,7 +6,11 @@ import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 
 class ChatScreen extends StatefulWidget {
-  const ChatScreen({Key? key}) : super(key: key);
+  final String chatPath;
+  final String userName;
+
+  const ChatScreen({Key? key, required this.chatPath, required this.userName})
+      : super(key: key);
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -20,10 +24,10 @@ class _ChatScreenState extends State<ChatScreen> {
   void createPost() async {
     final post = Message(
       body: messageController.text.trim(),
-      uid: 2,
+      uid: AuthService.user!.uid,
     );
     messageController.clear();
-    await repository.createPost(post);
+    await repository.createPost(post, widget.chatPath);
   }
 
   void editPost(Message message) async {
@@ -34,7 +38,7 @@ class _ChatScreenState extends State<ChatScreen> {
       edited: "1",
     );
 
-    await repository.updatePost(editMessage);
+    await repository.updatePost(editMessage, widget.chatPath);
 
     if (context.mounted) {
       Navigator.pop(context);
@@ -47,16 +51,18 @@ class _ChatScreenState extends State<ChatScreen> {
     bool logout = await AuthService.logOut();
 
     if (logout && mounted) {
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const RegisterPage(),
-          ));
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const RegisterPage(),
+        ),
+        (route) => false,
+      );
     }
   }
 
   Future<void> deletePost(String id) async {
-    await repository.deletePost(id);
+    await repository.deletePost(id, widget.chatPath);
 
     if (context.mounted) {
       Navigator.pop<bool>(context, true);
@@ -84,7 +90,7 @@ class _ChatScreenState extends State<ChatScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          AuthService.user.displayName!,
+          widget.userName,
           style: const TextStyle(
             fontSize: 25,
             fontWeight: FontWeight.bold,
@@ -112,12 +118,12 @@ class _ChatScreenState extends State<ChatScreen> {
 
                   return bValue.createdAt.compareTo(aValue.createdAt);
                 },
-                query: repository.queryPost(),
+                query: repository.queryPost(widget.chatPath),
                 itemBuilder: (context, snapshot, animation, index) {
                   final message = Message.fromJson(
                       Map<String, Object?>.from(snapshot.value as Map));
                   return Align(
-                    alignment: message.uid == 1
+                    alignment: message.uid != AuthService.user!.uid
                         ? Alignment.bottomLeft
                         : Alignment.bottomRight,
                     child: Padding(
@@ -210,12 +216,14 @@ class _ChatScreenState extends State<ChatScreen> {
                                 borderRadius: BorderRadius.only(
                                   topRight: const Radius.circular(10),
                                   topLeft: const Radius.circular(10),
-                                  bottomLeft: message.uid == 2
-                                      ? const Radius.circular(10)
-                                      : Radius.zero,
-                                  bottomRight: message.uid == 1
-                                      ? const Radius.circular(10)
-                                      : Radius.zero,
+                                  bottomLeft:
+                                      message.uid == AuthService.user!.uid
+                                          ? const Radius.circular(10)
+                                          : Radius.zero,
+                                  bottomRight:
+                                      message.uid != AuthService.user!.uid
+                                          ? const Radius.circular(10)
+                                          : Radius.zero,
                                 ),
                               ),
                               child: Padding(

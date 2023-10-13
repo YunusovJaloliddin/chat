@@ -1,7 +1,7 @@
 import 'package:meta/meta.dart';
 
 class Message {
-  final int uid;
+  final String uid;
   final String body;
   final String id;
   final DateTime createdAt;
@@ -16,7 +16,7 @@ class Message {
   }) : createdAt = createdAt ?? DateTime.now();
 
   factory Message.fromJson(Map<String, Object?> json) => Message(
-        uid: json["uid"] as int,
+        uid: json["uid"] as String,
         body: json["body"] as String,
         id: json["id"] as String,
         edited: json["edited"] as String,
@@ -54,7 +54,7 @@ class Message {
 
   @useResult
   Message copyWith({
-    int? uid,
+    String? uid,
     String? body,
     String? id,
     String? edited,

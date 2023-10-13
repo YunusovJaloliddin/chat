@@ -56,5 +56,5 @@ sealed class AuthService {
     }
   }
 
-  static User get user => auth.currentUser!;
+  static User? get user => auth.currentUser;
 }

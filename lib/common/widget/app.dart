@@ -1,5 +1,5 @@
 import 'package:chat/common/service/auth_service.dart';
-import 'package:chat/features/chats_screen/chat_screen.dart';
+import 'package:chat/features/home_screen.dart';
 import 'package:chat/features/register_screen/register_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       // ignore: unnecessary_null_comparison
-      home: (AuthService.user==null)? const RegisterPage(): const ChatScreen(),
+      home: (AuthService.user==null)? const RegisterPage(): const HomeScreen(),
     );
   }
 }
