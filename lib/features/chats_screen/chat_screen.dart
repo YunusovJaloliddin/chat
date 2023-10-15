@@ -135,7 +135,7 @@ class _ChatScreenState extends State<ChatScreen> {
                             return Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                message.uid == 2
+                                message.uid == AuthService.user!.uid
                                     ? IconButton(
                                         onPressed: () => showModalBottomSheet(
                                           context: context,
